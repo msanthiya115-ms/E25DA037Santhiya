@@ -1,0 +1,38 @@
++*In[2]:*+
+[source, ipython3]
+----
+import string
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+nltk.download('stopwords')
+nltk.download('wordnet')
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
+def clean_text(text):
+    text = text.lower()
+    text = text.translate(str.maketrans('', '', string.punctuation))
+    words = text.split()
+    words = [word for word in words if word not in stop_words]
+    words = [lemmatizer.lemmatize(word) for word in words]
+    return ' '.join(words)
+sample ="I love running with my cats, and they love chasing me!"
+cleaned = clean_text(sample)
+print("Original:", sample)
+print("Cleaned:", cleaned)
+
+----
+
+
++*Out[2]:*+
+----
+Original: I love running with my cats, and they love chasing me!
+Cleaned: love running cat love chasing
+
+[nltk_data] Downloading package stopwords to C:\Users\santhiya
+[nltk_data]     m\AppData\Roaming\nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package wordnet to C:\Users\santhiya
+[nltk_data]     m\AppData\Roaming\nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+----
